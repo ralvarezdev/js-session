@@ -1,3 +1,3 @@
-import Wrapper from "./lib/express/wrapper";
+import Wrapper from "./express/wrapper";
 
 export default Wrapper
