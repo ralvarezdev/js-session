@@ -36,6 +36,17 @@ export default class Wrapper {
         this.#logger = logger;
     }
 
+    // Load the session from a JSON
+    loadJSON(json) {
+        // Log the session properties
+        if (this.#logger)
+            this.#logger.debug('Loading session properties from JSON: '+ json);
+
+        // Load the session properties
+        this.#options = JSON.parse(json);
+        this.#session = session(this.#options);
+    }
+
     // Get the session
     get session() {
         return this.#session;
@@ -45,19 +56,23 @@ export default class Wrapper {
     set(req, properties) {
         // Log the session properties
         if (this.#logger)
-            this.#logger.debug('Setting session properties', properties);
+            this.#logger.debug('Setting session properties: ' + properties);
 
         // Set each property to the session
-        for (let key in properties) {
+        for (let key in properties)
             req.session[key] = properties[key];
-        }
+    }
+
+    // Check if the session exists
+    exists(req) {
+        return !!req.session;
     }
 
     // Destroy the session for the request
     destroy(req) {
         // Log the session properties
         if (this.#logger)
-            this.#logger.debug('Destroying session properties', req.session);
+            this.#logger.debug('Destroying session properties: ' +  String(req.session));
 
         // Destroy the session
         req.session.destroy();
