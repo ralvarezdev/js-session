@@ -1,7 +1,7 @@
 import session from 'express-session';
 
-// Wrapper for the session
-export default class Wrapper {
+// Session for the session
+export default class Session {
     #logger
     #options
     #session

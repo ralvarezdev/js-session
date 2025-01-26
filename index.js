@@ -1,3 +1,1 @@
-import Wrapper from "./express/wrapper";
-
-export default Wrapper
+export {default as Session} from "./express/session.js";
