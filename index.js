@@ -1,1 +1,1 @@
-export {default as Session} from "./express/session.js";
+export {default, checkSession, countVisits} from "./express/index.js";
