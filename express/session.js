@@ -36,6 +36,11 @@ export default class Session {
         this.#logger = logger;
     }
 
+    // Get the session options
+    get options() {
+        return this.#options;
+    }
+
     // Load the session from a JSON
     loadJSON(json) {
         // Log the session properties
