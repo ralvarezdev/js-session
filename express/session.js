@@ -57,15 +57,19 @@ export default class Session {
         return this.#session;
     }
 
-    // Set the session properties to the request
-    set(req, properties) {
+    // Set the session properties to the response
+    set(res, properties ={}) {
         // Log the session properties
         if (this.#logger)
             this.#logger.debug('Setting session properties: ' + properties);
 
+        // Check if the session exists
+        if (!res.session)
+            res.session = {};
+
         // Set each property to the session
         for (let key in properties)
-            req.session[key] = properties[key];
+            res.session[key] = properties[key];
     }
 
     // Check if the session exists
