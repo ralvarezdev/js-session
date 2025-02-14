@@ -72,11 +72,6 @@ export default class Session {
             req.session[key] = properties[key];
     }
 
-    // Check if the session exists
-    exists(req) {
-        return !!req.session;
-    }
-
     // Destroy the session for the request
     destroy(req) {
         // Log the session properties
