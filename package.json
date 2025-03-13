@@ -1,6 +1,6 @@
 {
   "name": "@ralvarezdev/js-session",
-  "version": "0.2.11",
+  "version": "0.2.13",
   "description": "Express Session wrapper for JavaScript projects",
   "main": "index.js",
   "scripts": {

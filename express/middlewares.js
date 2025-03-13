@@ -1,13 +1,11 @@
 import parseurl from 'parseurl'
 
-// Middleware to check if a session exists
-export default function checkSession(sessionDoesNotExistBody) {
+// Middleware to check if a session is valid
+export default function checkSession(isSessionValidFn=(req, res)=>true) {
     return (req, res, next) => {
-        // Check if the session exists
-        if (!req.session) {
-            // If the session does not exist, return an error
-            return res.status(401).send(sessionDoesNotExistBody);
-        }
+        // Check if a session is valid
+        if (!isSessionValidFn(req, res))
+            return
         next()
     }
 }
@@ -16,9 +14,8 @@ export default function checkSession(sessionDoesNotExistBody) {
 export function countVisits() {
     return (req, res, next) => {
         // Check if the session has a views object
-        if (!req.session.views) {
+        if (!req.session.views)
             req.session.views = {}
-        }
 
         // Get the URL path
         const pathname = parseurl(req).pathname
