@@ -73,17 +73,33 @@ export default class Session {
     }
 
     // Destroy the session for the request
-    destroy(req) {
+    destroy(req, res, onError= (res, error) => {}, onSuccess= (res) => {}) {
         // Log the session properties
         if (this.#logger)
             this.#logger.debug('Destroying session properties: ' +  String(req.session));
 
         // Destroy the session
-        req.session.destroy();
+        if (req.session) {
+            req.session.destroy(err => {
+                if (err) {
+                    if (this.#logger)
+                        this.#logger.error('Error destroying session:', err);
+                    onError(res, err);
+                } else {
+                    // Clear the session cookie
+                    res.clearCookie(this.#options.name);
+                    onSuccess(res);
+                }
+            });
+        } else {
+            if (this.#logger)
+                this.#logger.error('No active session to destroy');
+            onError(res, new Error('No active session to destroy'));
+        }
     }
 
     // Close the session for the request
-    close(req) {
-        this.destroy(req);
+    close(req, res, onError= (res, error) => {}, onSuccess= (res) => {}) {
+        this.destroy(req, res, onError, onSuccess);
     }
 }
