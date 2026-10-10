@@ -14,7 +14,7 @@
     "session"
   ],
   "author": "Ramón Álvarez",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ralvarezdev/js-session.git"
